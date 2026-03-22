@@ -12,6 +12,8 @@ export function useWorkoutManager() {
 
   // Initialize session and its exercises
   useEffect(() => {
+    let active = true;
+
     async function init() {
       if (scheduleLoading) return;
       
@@ -20,7 +22,7 @@ export function useWorkoutManager() {
       const splitId = schedule[userDay];
       
       if (!splitId) {
-        setLoading(false);
+        if (active) setLoading(false);
         return;
       }
 
@@ -29,43 +31,22 @@ export function useWorkoutManager() {
         session = await createSession(splitId);
       }
 
-      // Load session exercises
+      // Session is now guaranteed to have populate exercises thanks to the transaction in createSession
       const existing = await db.session_exercises
         .where('session_id')
         .equals(session.id)
         .toArray();
 
-      if (existing.length === 0) {
-        // Create session_exercises from split links
-        const links = await db.split_exercises
-          .where('split_id')
-          .equals(splitId)
-          .and(link => link.removed_at === null)
-          .toArray();
-
-        links.sort((a,b) => a.order_index - b.order_index);
-
-        const newSEs = await Promise.all(
-          links.map(async (link) => {
-            const sid = await db.session_exercises.add({
-              session_id: session.id,
-              exercise_id: link.exercise_id,
-              planned_exercise_id: link.exercise_id,
-              is_swap: false,
-              order_index: link.order_index,
-              completed: 0
-            });
-            return db.session_exercises.get(sid);
-          })
-        );
-        setSessionExercises(newSEs);
-      } else {
-        existing.sort((a,b) => a.order_index - b.order_index);
+      existing.sort((a, b) => a.order_index - b.order_index);
+      
+      if (active) {
         setSessionExercises(existing);
+        setLoading(false);
       }
-      setLoading(false);
     }
+
     init();
+    return () => { active = false; };
   }, [schedule, scheduleLoading, todaySession]);
 
   const toggleExerciseCompleted = async (id, currentStatus) => {

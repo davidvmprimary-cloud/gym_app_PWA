@@ -8,6 +8,8 @@ export function useWorkoutSets(sessionExerciseId, exerciseId, splitId) {
   const debounceTimers = useRef({}); // { setId: timer }
 
   useEffect(() => {
+    let active = true;
+
     async function init() {
       // 1. Get history (previous session of this split)
       const lastSessions = await db.sessions
@@ -17,6 +19,7 @@ export function useWorkoutSets(sessionExerciseId, exerciseId, splitId) {
         .reverse()
         .sortBy('date');
 
+      let historySets = [];
       if (lastSessions.length > 0) {
         const lastSessionId = lastSessions[0].id;
         const lastSessionEx = await db.session_exercises
@@ -31,7 +34,8 @@ export function useWorkoutSets(sessionExerciseId, exerciseId, splitId) {
             .equals(lastSessionEx.id)
             .toArray();
           lastSets.sort((a,b) => a.set_number - b.set_number);
-          setHistory(lastSets);
+          historySets = lastSets;
+          if (active) setHistory(lastSets);
         }
       }
 
@@ -43,28 +47,49 @@ export function useWorkoutSets(sessionExerciseId, exerciseId, splitId) {
       
       if (currentSets.length === 0) {
         // Pre-populate based on history or default 3
-        const count = history.length > 0 ? history.length : 3;
+        const count = historySets.length > 0 ? historySets.length : 3;
         const newSets = [];
-        for (let i = 1; i <= count; i++) {
-          const sid = await db.sets.add({
-            session_exercise_id: sessionExerciseId,
-            set_number: i,
-            reps: '',
-            weight: '',
-            unit: 'kg', // Default; should be profile unit
-            completed: 0,
-            created_at: new Date().toISOString()
-          });
-          newSets.push(await db.sets.get(sid));
-        }
-        setSets(newSets);
+        
+        // We use a transaction to make it atomic and avoid duplicates from concurrent runs
+        await db.transaction('rw', db.sets, async () => {
+          // Re-check inside transaction to be sure
+          const checkAgain = await db.sets
+            .where('session_exercise_id')
+            .equals(sessionExerciseId)
+            .count();
+          
+          if (checkAgain > 0) return;
+
+          for (let i = 1; i <= count; i++) {
+            await db.sets.add({
+              session_exercise_id: sessionExerciseId,
+              set_number: i,
+              reps: '',
+              weight: '',
+              unit: 'kg', 
+              completed: 0,
+              created_at: new Date().toISOString()
+            });
+          }
+        });
+
+        // Load them after creation
+        const created = await db.sets
+          .where('session_exercise_id')
+          .equals(sessionExerciseId)
+          .toArray();
+        created.sort((a,b) => a.set_number - b.set_number);
+        if (active) setSets(created);
       } else {
         currentSets.sort((a,b) => a.set_number - b.set_number);
-        setSets(currentSets);
+        if (active) setSets(currentSets);
       }
-      setLoading(false);
+      
+      if (active) setLoading(false);
     }
+
     init();
+    return () => { active = false; };
   }, [sessionExerciseId, exerciseId, splitId]);
 
   const updateSet = (id, updates) => {

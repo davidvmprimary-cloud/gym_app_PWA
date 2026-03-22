@@ -20,16 +20,47 @@ export function useSessions() {
   }, []);
 
   const createSession = async (splitId) => {
-    const date = getTodayDate();
-    const sessionId = await db.sessions.add({
-      date,
-      split_id: splitId,
-      started_at: new Date().toISOString(),
-      completed_at: null
+    return await db.transaction('rw', [db.sessions, db.session_exercises, db.split_exercises], async () => {
+      const date = getTodayDate();
+      
+      // Safety check: Avoid duplicate sessions for the same date/split if called concurrently
+      const existing = await db.sessions.where('date').equals(date).first();
+      if (existing) {
+        setTodaySession(existing);
+        return existing;
+      }
+
+      const sessionId = await db.sessions.add({
+        date,
+        split_id: splitId,
+        started_at: new Date().toISOString(),
+        completed_at: null
+      });
+
+      // Populate session_exercises from split links
+      const links = await db.split_exercises
+        .where('split_id')
+        .equals(splitId)
+        .and(link => link.removed_at === null)
+        .toArray();
+
+      links.sort((a, b) => a.order_index - b.order_index);
+
+      for (const link of links) {
+        await db.session_exercises.add({
+          session_id: sessionId,
+          exercise_id: link.exercise_id,
+          planned_exercise_id: link.exercise_id,
+          is_swap: false,
+          order_index: link.order_index,
+          completed: 0
+        });
+      }
+
+      const session = await db.sessions.get(sessionId);
+      setTodaySession(session);
+      return session;
     });
-    const session = await db.sessions.get(sessionId);
-    setTodaySession(session);
-    return session;
   };
 
   const completeSession = async (id) => {
