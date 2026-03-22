@@ -1,0 +1,370 @@
+.container {
+  padding: 0;
+  background-color: var(--bg);
+  min-height: 100vh;
+  padding-bottom: calc(80px + env(safe-area-inset-bottom));
+}
+
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  position: sticky;
+  top: 0;
+  background-color: rgba(26, 26, 26, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  border-bottom: 1px solid var(--border);
+  height: 60px;
+}
+
+.backBtn {
+  background: none;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.finishBtn {
+  background-color: var(--accent);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.finishBtn:active {
+  transform: scale(0.95);
+}
+
+.finishBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.progressBar {
+  background-color: #141414;
+  padding: 12px 1rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 60px;
+  z-index: 900;
+}
+
+.exercisesGrid {
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  background-color: #141414;
+  padding: 1.25rem 1rem;
+  border-bottom: 1px solid #1a1a1a;
+  transition: opacity 0.3s;
+  border-left: 4px solid transparent; /* Logic will override via inline style */
+}
+
+/* Alternate backgrounds for cards to match reference */
+.card:nth-child(even) {
+  background-color: #0f0f0f;
+}
+
+.card.completed {
+  opacity: 0.6;
+}
+
+.card.completed .exerciseName {
+  color: var(--text-secondary);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
+}
+
+.headerInfo {
+  flex: 1;
+}
+
+.nameRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.exerciseName {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.improvementTag {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #5FA870;
+  background-color: rgba(95, 168, 112, 0.1);
+  padding: 2px 6px;
+  border-radius: 99px;
+}
+
+.metadata {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.checkCircle {
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.checkCircle.checked {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.setsList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 1.25rem;
+}
+
+.setRow {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  height: 52px;
+  transition: transform 0.1s;
+}
+
+.setMain {
+  flex: 1;
+  background-color: #242424;
+  border-radius: 4px 10px 10px 4px;
+  border-left: 4px solid var(--accent-color, var(--accent));
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.setPrimaryInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.setMeta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.setIndex {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--text-secondary);
+  opacity: 0.8;
+  margin-bottom: -2px;
+}
+
+.prevValue {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.inputsGroup {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.weightInput, .repsInput {
+  background: none;
+  color: var(--text-primary);
+  width: 48px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: right;
+  padding: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.repsInput {
+  width: 32px;
+}
+
+.inputLabel {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.unitBtn {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background-color: #1a1a1a;
+  padding: 2px 4px;
+  border-radius: 4px;
+  min-width: 24px;
+}
+
+.setCheckBtn {
+  width: 52px;
+  height: 52px;
+  background-color: rgba(74, 124, 89, 0.1);
+  border: 2px dashed #4a4a4a;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4a4a4a;
+  font-size: 0.65rem;
+  font-weight: 800;
+  transition: all 0.2s;
+}
+
+.setCheckBtnChecked {
+  background-color: var(--accent);
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+}
+
+/* Completed row styles matching reference */
+.setRowCompleted .setMain {
+  background-color: #2e2e2e;
+}
+
+.setRowCompleted .weightInput, 
+.setRowCompleted .repsInput {
+  color: var(--text-primary);
+}
+
+.cardActions {
+  display: flex;
+  gap: 12px;
+}
+
+.actionBtn {
+  flex: 1;
+  background: none;
+  color: var(--text-secondary);
+  border: 2px dashed #4a4a4a;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.actionBtn:active {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.swapBtn {
+  width: 44px;
+  height: 44px;
+  background: none;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+/* Modal styles cleanup */
+.modalHint {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 8px;
+}
+
+.exerciseSelectGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 1.5rem 0;
+}
+
+.exerciseOption {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background-color: var(--surface-raised);
+  padding: 12px;
+  border-radius: 12px;
+  text-align: left;
+}
+
+.colorStrip {
+  width: 4px;
+  height: 24px;
+  border-radius: 2px;
+}
+
+.closeBtn {
+  background-color: var(--surface-raised);
+  color: var(--text-primary);
+  padding: 14px;
+  border-radius: 14px;
+  font-weight: 600;
+}
+
+/* Animations */
+@keyframes flash-accent {
+  0% { background-color: rgba(74, 124, 89, 0.5); }
+  100% { background-color: #242424; }
+}
+
+.setRow.flashing .setMain {
+  animation: flash-accent 0.6s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 360px) {
+  .inputsGroup {
+    gap: 8px;
+  }
+  .weightInput {
+    width: 40px;
+  }
+}

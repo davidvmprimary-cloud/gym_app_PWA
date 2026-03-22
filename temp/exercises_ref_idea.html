@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <title>Gym Tracker - Active Workout</title>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet" />
+    <!-- Tailwind CSS v3 -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'gym-black': '#0C0C0C',
+                        'gym-dark-1': '#141414',
+                        'gym-dark-2': '#1A1A1A',
+                        'gym-dark-3': '#242424',
+                        'gym-border': '#1A1A1A',
+                        'gym-primary': '#F0F0F0',
+                        'gym-secondary': '#8A8A8A',
+                        'gym-muted': '#4A4A4A',
+                        'gym-green-accent': '#4E8B5F',
+                        'gym-green-bright': '#5FA870',
+                        'gym-green-bg': '#3D6B47',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'gym': '10px',
+                        'gym-pill': '9999px',
+                    }
+                }
+            }
+        }
+    </script>
+    <style data-purpose="custom-styling">
+        body {
+            background-color: #0C0C0C;
+            color: #F0F0F0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .tabular-nums {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .circular-progress {
+            transform: rotate(-90deg);
+        }
+
+        .pulse-dot {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.4;
+                transform: scale(1.2);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body class="font-sans">
+    <!-- BEGIN: Sticky Header -->
+    <header
+        class="sticky top-0 z-50 bg-gym-black border-b border-gym-border px-4 py-3 flex items-center justify-between h-16"
+        data-purpose="main-header">
+        <div class="flex flex-col">
+            <span class="text-[11px] text-gym-secondary font-semibold uppercase tracking-wider">Martes 11 Jun</span>
+            <h1 class="text-[14px] font-bold text-gym-green-accent uppercase">Pull Day</h1>
+        </div>
+        <button
+            class="w-[80px] h-[34px] bg-gym-green-bg rounded-gym-pill flex items-center justify-center gap-1 text-[13px] font-semibold text-white">
+            <i class="w-4 h-4" data-lucide="cloud-upload"></i>
+            Guardar
+        </button>
+    </header>
+    <!-- END: Sticky Header -->
+    <main class="pb-32" data-purpose="scrollable-content">
+        <!-- BEGIN: Global Progress Hero -->
+        <section class="h-[120px] px-5 py-6 flex items-center justify-between border-b border-gym-border"
+            data-purpose="progress-hero">
+            <div class="flex flex-col">
+                <span class="text-[11px] text-gym-secondary font-bold uppercase tracking-wide">Mejora Global</span>
+                <span class="text-[48px] font-bold text-gym-green-bright leading-tight">+4.2%</span>
+                <span class="text-[11px] text-gym-secondary">3 de 6 ejercicios completados</span>
+            </div>
+            <div class="relative flex items-center justify-center w-[72px] h-[72px]">
+                <svg class="circular-progress w-full h-full">
+                    <circle cx="36" cy="36" fill="transparent" r="32" stroke="#1A1A1A" stroke-width="6"></circle>
+                    <circle cx="36" cy="36" fill="transparent" r="32" stroke="#4E8B5F" stroke-dasharray="201"
+                        stroke-dashoffset="100.5" stroke-linecap="round" stroke-width="6"></circle>
+                </svg>
+                <span class="absolute text-[14px] font-semibold">50%</span>
+            </div>
+        </section>
+        <!-- END: Global Progress Hero -->
+        <!-- BEGIN: Exercise List -->
+        <section data-purpose="exercise-list">
+            <!-- Exercise 1 (Odd) -->
+            <article class="bg-gym-dark-1 p-4 mb-px" data-purpose="exercise-card">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-2">
+                        <h2 class="text-[16px] font-semibold">Jalón al Pecho</h2>
+                        <span
+                            class="bg-[#3D6B4720] text-gym-green-bright text-[11px] font-bold px-2 py-0.5 rounded-gym-pill">+3.2%</span>
+                    </div>
+                    <button class="text-gym-secondary">
+                        <i class="w-5 h-5" data-lucide="sliders-horizontal"></i>
+                    </button>
+                </div>
+                <div class="space-y-2 mb-4">
+                    <!-- Set 1: Confirmed -->
+                    <div class="flex items-center gap-3 h-12">
+                        <div
+                            class="flex-1 bg-gym-dark-3 border-l-4 border-gym-green-accent rounded-r-[4px] h-full flex items-center px-3 justify-between">
+                            <span class="tabular-nums text-[22px] font-bold">12 <span
+                                    class="text-[14px] font-normal text-gym-secondary">reps</span></span>
+                            <span class="tabular-nums text-[22px] font-bold">65 <span
+                                    class="text-[14px] font-normal text-gym-secondary">kg</span></span>
+                        </div>
+                        <div class="w-12 h-12 bg-gym-green-accent rounded-gym flex items-center justify-center">
+                            <i class="text-white w-6 h-6 stroke-[3px]" data-lucide="check"></i>
+                        </div>
+                    </div>
+                    <!-- Set 2: Confirmed -->
+                    <div class="flex items-center gap-3 h-12">
+                        <div
+                            class="flex-1 bg-gym-dark-3 border-l-4 border-gym-green-accent rounded-r-[4px] h-full flex items-center px-3 justify-between">
+                            <span class="tabular-nums text-[22px] font-bold">10 <span
+                                    class="text-[14px] font-normal text-gym-secondary">reps</span></span>
+                            <span class="tabular-nums text-[22px] font-bold">65 <span
+                                    class="text-[14px] font-normal text-gym-secondary">kg</span></span>
+                        </div>
+                        <div class="w-12 h-12 bg-gym-green-accent rounded-gym flex items-center justify-center">
+                            <i class="text-white w-6 h-6 stroke-[3px]" data-lucide="check"></i>
+                        </div>
+                    </div>
+                    <!-- Set 3: Active/Suggested -->
+                    <div class="flex items-center gap-3 h-12">
+                        <div
+                            class="flex-1 bg-gym-dark-2 border-l-4 border-gym-muted rounded-r-[4px] h-full flex items-center px-3 justify-between">
+                            <div class="flex items-center gap-4">
+                                <span class="tabular-nums text-[22px] font-bold text-[#2E2E2E]">12</span>
+                                <span class="tabular-nums text-[22px] font-bold text-[#2E2E2E]">65</span>
+                            </div>
+                            <span
+                                class="text-[10px] font-bold text-gym-secondary bg-gym-dark-3 px-2 py-0.5 rounded">SUGERIDO</span>
+                        </div>
+                        <div
+                            class="w-12 h-12 border-2 border-gym-muted border-dashed rounded-gym flex items-center justify-center">
+                            <span class="text-gym-muted text-[12px] font-bold">SET 3</span>
+                        </div>
+                    </div>
+                </div>
+                <button
+                    class="w-full py-3 border-2 border-dashed border-gym-muted rounded-gym text-gym-secondary text-[14px] font-medium">
+                    + Agregar serie
+                </button>
+            </article>
+            <!-- Exercise 2 (Even) -->
+            <article class="bg-gym-dark-2 p-4" data-purpose="exercise-card">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-2">
+                        <h2 class="text-[16px] font-semibold">Pull Up con Lazo</h2>
+                        <span class="text-gym-muted text-[11px] font-bold px-2 py-0.5 rounded-gym-pill">--</span>
+                    </div>
+                    <button class="text-gym-secondary">
+                        <i class="w-5 h-5" data-lucide="sliders-horizontal"></i>
+                    </button>
+                </div>
+                <div class="space-y-2">
+                    <!-- Untouched placeholders -->
+                    <div class="flex items-center gap-3 h-12">
+                        <div
+                            class="flex-1 bg-gym-dark-3 border-l-4 border-gym-muted rounded-r-[4px] h-full flex items-center px-3 justify-between">
+                            <span class="tabular-nums text-[22px] font-bold text-[#2E2E2E]">10 <span
+                                    class="text-[14px] font-normal text-gym-muted">reps</span></span>
+                            <span class="tabular-nums text-[22px] font-bold text-[#2E2E2E]">0 <span
+                                    class="text-[14px] font-normal text-gym-muted">kg</span></span>
+                        </div>
+                        <div
+                            class="w-12 h-12 bg-gym-muted/20 border border-gym-muted rounded-gym flex items-center justify-center">
+                            <i class="text-gym-muted w-5 h-5" data-lucide="circle"></i>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 h-12">
+                        <div
+                            class="flex-1 bg-gym-dark-3 border-l-4 border-gym-muted rounded-r-[4px] h-full flex items-center px-3 justify-between">
+                            <span class="tabular-nums text-[22px] font-bold text-[#2E2E2E]">10 <span
+                                    class="text-[14px] font-normal text-gym-muted">reps</span></span>
+                            <span class="tabular-nums text-[22px] font-bold text-[#2E2E2E]">0 <span
+                                    class="text-[14px] font-normal text-gym-muted">kg</span></span>
+                        </div>
+                        <div
+                            class="w-12 h-12 bg-gym-muted/20 border border-gym-muted rounded-gym flex items-center justify-center">
+                            <i class="text-gym-muted w-5 h-5" data-lucide="circle"></i>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+        <!-- END: Exercise List -->
+    </main>
+    <!-- BEGIN: Sticky Bottom -->
+    <footer class="fixed bottom-0 left-0 right-0 p-4 bg-gym-black/80 backdrop-blur-md border-t border-gym-border z-50"
+        data-purpose="sticky-bottom-nav">
+        <button
+            class="w-full h-14 bg-gym-green-bg rounded-gym flex flex-col items-center justify-center gap-0 relative">
+            <div class="flex items-center gap-2">
+                <i class="w-5 h-5 text-white" data-lucide="cloud-upload"></i>
+                <span class="text-[15px] font-semibold text-white">Guardar Sesión</span>
+            </div>
+            <div class="flex items-center gap-1.5 mt-0.5">
+                <span class="w-1.5 h-1.5 bg-gym-green-bright rounded-full pulse-dot"></span>
+                <span class="text-[11px] text-white/80">3 series sin guardar</span>
+            </div>
+        </button>
+        <!-- Home indicator spacer for iOS -->
+        <div class="h-4"></div>
+    </footer>
+    <!-- END: Sticky Bottom -->
+    <script data-purpose="lucide-init">
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,112 @@
+.container {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.onboarding {
+  padding: 2.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  justify-content: center;
+  min-height: 80vh;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.dateLabel {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.splitTitle {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.loading {
+  padding: 2rem;
+  color: var(--text-secondary);
+}
+
+.sessionControl {
+  margin-top: 1rem;
+}
+
+.primaryBtn {
+  width: 100%;
+  padding: 1.2rem;
+  background-color: var(--accent);
+  color: white;
+  border-radius: var(--radius);
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(74, 124, 89, 0.3);
+  transition: all 0.2s;
+}
+
+.primaryBtn:active {
+  transform: scale(0.98);
+}
+
+.restDayInfo {
+  background-color: var(--surface);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  color: var(--text-secondary);
+  border: 1px dashed var(--border);
+  line-height: 1.5;
+}
+
+.lastSession {
+  background-color: var(--surface);
+  padding: 1.2rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sectionTitle {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+
+.exerciseListSummary {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+.emptyState {
+  color: var(--text-secondary);
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.input {
+  background-color: var(--surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  padding: 14px;
+  border-radius: var(--radius);
+  font-size: 1.1rem;
+  width: 100%;
+  text-align: center;
+}

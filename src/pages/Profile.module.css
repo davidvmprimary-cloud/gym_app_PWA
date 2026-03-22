@@ -1,0 +1,276 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 5px;
+}
+
+.tabBtn {
+  background: none;
+  color: var(--text-secondary);
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: var(--radius);
+  transition: all 0.2s;
+}
+
+.tabBtn.active {
+  color: var(--accent);
+  background-color: var(--surface-raised);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* My Info */
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.label {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.input {
+  background-color: var(--surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  padding: 12px;
+  border-radius: var(--radius);
+  font-size: 1rem;
+}
+
+.input:focus {
+  border-color: var(--accent);
+}
+
+.saveBtn {
+  background-color: var(--accent);
+  color: white;
+  padding: 14px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.saveBtn:hover {
+  background-color: var(--accent-hover);
+}
+
+.age {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-left: 5px;
+}
+
+.unitToggle {
+  display: flex;
+  gap: 0;
+  margin-top: 5px;
+}
+
+.toggleBtn {
+  flex: 1;
+  padding: 10px;
+  background-color: var(--surface);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.toggleBtn:first-child {
+  border-top-left-radius: var(--radius);
+  border-bottom-left-radius: var(--radius);
+}
+
+.toggleBtn:last-child {
+  border-top-right-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+}
+
+.toggleBtn.active {
+  background-color: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+/* My Splits */
+.splitCard {
+  background-color: var(--surface);
+  border-radius: var(--radius);
+  padding: 1rem;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.splitHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.splitNameInput {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.splitNameInput:focus {
+  outline: none;
+  color: var(--accent);
+}
+
+.exerciseList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.exerciseItem {
+  background-color: var(--surface-raised);
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+}
+
+.colorDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.exerciseName {
+  flex: 1;
+}
+
+.orderActions {
+  display: flex;
+  gap: 5px;
+}
+
+.miniBtn {
+  background: none;
+  color: var(--text-secondary);
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.removeBtn {
+  color: var(--danger);
+  margin-left: 5px;
+}
+
+.addBtn {
+  background-color: var(--surface-raised);
+  color: var(--text-primary);
+  padding: 10px;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  border: 1px dashed var(--border);
+}
+
+/* Weekly Schedule */
+.scheduleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.dayName {
+  font-weight: 500;
+  flex: 1;
+}
+
+.splitSelect {
+  background-color: var(--surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  padding: 8px;
+  border-radius: var(--radius);
+}
+
+/* Logout */
+.logoutBtn {
+  color: var(--danger);
+  background: none;
+  margin: 2rem auto;
+  border: 1px solid var(--danger);
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  font-weight: 600;
+}
+
+/* Modal Simple Layout */
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: flex-end; /* Bottom sheet on mobile */
+  z-index: 2000;
+}
+
+.modalContent {
+  width: 100%;
+  background-color: var(--surface);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  padding: 1.5rem;
+  max-height: 80vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.colorPicker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 10px 0;
+}
+
+.colorOption {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.colorOption.selected {
+  border-color: white;
+  transform: scale(1.1);
+}
